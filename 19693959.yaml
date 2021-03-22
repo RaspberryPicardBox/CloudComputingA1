@@ -1,0 +1,55 @@
+imports:
+- path: vm-server.jinja
+- path: spanner-storage.jinja
+- path: file-storage.jinja
+
+resources:
+- name: vm-us1
+  type: vm-server.jinja
+  properties:
+    zone: us-central1-a
+    
+- name: vm-us2
+  type: vm-server.jinja
+  properties:
+    zone: us-central1-c
+    
+- name: vm-eu1
+  type: vm-server.jinja
+  properties:
+    zone: europe-west2-a
+    
+- name: vm-eu2
+  type: vm-server.jinja
+  properties:
+    zone: europe-north1-a
+    
+- name: spanner-us1
+  type: spanner-storage.jinja
+  properties:
+    zone: us-central1-a
+    nodeCount: 8
+    
+- name: spanner-eu1
+  type: spanner-storage.jinja
+  properties:
+    zone: europe-west2-a
+    nodeCount: 4
+    
+- name: standard-storage-us1
+  type: file-storage.jinja
+  properties:
+    storageClass: STANDARD
+    location: US
+    
+- name: standard-storage-eu1
+  type: file-storage.jinja
+  properties:
+    storageClass: STANDARD
+    location: EU
+    
+- name: archive-storage-us1
+  type: file-storage.jinja
+  properties:
+    storageClass: ARCHIVE
+    location: US

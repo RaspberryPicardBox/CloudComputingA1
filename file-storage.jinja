@@ -1,0 +1,7 @@
+resources:
+- type: storage.v1.bucket
+  name: {{ env["name"] }}
+  properties:
+    storageClass: {{ properties["storageClass"] }}
+    location: {{ properties["location"] }}
+    
