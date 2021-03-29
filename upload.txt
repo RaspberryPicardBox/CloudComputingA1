@@ -1,0 +1,1 @@
+gcloud deployment-manager deployments create test-deployment-v1 --config "F:\Second Year\Cloud Computing\Assignment_1\CloudComputingA1\19693959.yml" --preview

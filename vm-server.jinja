@@ -11,5 +11,10 @@ resources:
       autoDelete: true
       initializeParams:
         sourceImage: projects/debian-cloud/global/images/family/debian-10
+    - deviceName: data
+      type: PERSISTENT
+      boot: false
+      autoDelete: false
     networkInterfaces:
-    - network: global/networks/default
+    - network: global/networks/system-network
+    - subnetwork: {{ properties["subnetwork"] }}

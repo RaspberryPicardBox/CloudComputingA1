@@ -2,27 +2,67 @@ imports:
 - path: vm-server.jinja
 - path: spanner-storage.jinja
 - path: file-storage.jinja
+- path: network.jinja
+- path: subnetwork.jinja
+- path: firewall.jinja
 
 resources:
+- name: system-network
+  type: network.jinja
+  
+- name: us-subnet
+  type: subnetwork.jinja
+  properties:
+    ipCidrRange: 10.0.0.0/16
+    network: $(ref.system-network.selfLink)
+    region: us-central1
+
+- name: eu-subnet
+  type: subnetwork.jinja
+  properties:
+    ipCidrRange: 10.1.0.0/16
+    network: $(ref.system-network.selfLink)
+    region: eu-north1
+
+- name: us-firewall-tcp
+  type: firewall.jinja
+  properties:
+    network: $(ref.system-network.selfLink)
+    sourceRanges: ["0.0.0.0/0"]
+    IPProtocol: TCP
+    ports: ["80"]
+
+- name: eu-firewall-tcp
+  type: firewall.jinja
+  properties:
+    network: $(ref.system-network.selfLink)
+    sourceRanges: ["0.0.0.0/0"]
+    IPProtocol: TCP
+    ports: ["80"]
+
 - name: vm-us1
   type: vm-server.jinja
   properties:
     zone: us-central1-a
+    subnetwork: $(ref.us-subnet.selfLink)
     
 - name: vm-us2
   type: vm-server.jinja
   properties:
     zone: us-central1-c
+    subnetwork: $(ref.us-subnet.selfLink)
     
 - name: vm-eu1
   type: vm-server.jinja
   properties:
     zone: europe-west2-a
+    subnetwork: $(ref.eu-subnet.selfLink)
     
 - name: vm-eu2
   type: vm-server.jinja
   properties:
     zone: europe-north1-a
+    subnetwork: $(ref.eu-subnet.selfLink)
     
 - name: spanner-us1
   type: spanner-storage.jinja
