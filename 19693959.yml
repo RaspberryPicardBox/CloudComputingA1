@@ -1,6 +1,7 @@
 imports:
 - path: vm-server.jinja
-- path: spanner-storage.jinja
+- path: sql-storage.jinja
+- path: sql-database.jinja
 - path: file-storage.jinja
 - path: network.jinja
 - path: subnetwork.jinja
@@ -64,17 +65,41 @@ resources:
     zone: europe-north1-a
     subnetwork: $(ref.eu-subnet.selfLink)
     
-- name: spanner-us1
-  type: spanner-storage.jinja
+- name: 19693959SQL-us1
+  type: sql-storage.jinja
   properties:
+    tier: db-custom-1-3840
     zone: us-central1-a
-    nodeCount: 8
-    
-- name: spanner-eu1
-  type: spanner-storage.jinja
+
+- name: sql-database-items-us1
+  type: sql-database.jinja
   properties:
+    name: items
+    instance: $(ref.19693959SQL-us1.selfLink)
+    
+- name: sql-database-customers-us1
+  type: sql-database.jinja
+  properties:
+    name: customers
+    instance: $(ref.19693959SQL-us1.selfLink)
+  
+- name: 19693959SQL-eu1
+  type: sql-storage.jinja
+  properties:
+    tier: db-custom-1-3840
     zone: europe-west2-a
-    nodeCount: 4
+    
+- name: sql-database-items-eu1
+  type: sql-database.jinja
+  properties:
+    name: items
+    instance: $(ref.19693959SQL-eu1.selfLink)
+    
+- name: sql-database-customers-eu1
+  type: sql-database.jinja
+  properties:
+    name: customers
+    instance: $(ref.19693959SQL-eu1.selfLink)
     
 - name: standard-storage-us1
   type: file-storage.jinja

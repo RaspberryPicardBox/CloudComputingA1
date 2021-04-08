@@ -1,0 +1,8 @@
+resources:
+- name: {{ env["name"] }}
+  type: sqladmin.v1beta4.instance
+  properties:
+    zone: {{properties['zone'] }}
+    rootPassword: "custom-root-password"
+    settings:
+      tier: {{ properties['tier'] }}

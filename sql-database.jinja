@@ -1,0 +1,8 @@
+resources:
+- name: {{ env["name"] }}
+  type: sqladmin.v1beta4.database
+  properties:
+    name: {{ properties["name"] }}
+    instance: {{ properties["instance"] }}
+    charset: utf8
+    collation: utf8_general_ci
